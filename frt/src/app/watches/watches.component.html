@@ -1,0 +1,79 @@
+<app-nav-bar>
+</app-nav-bar>
+
+<div id="carouselExampleSlidesOnly" class="carousel slide" data-ride="carousel" style="background-color:rgb(208, 223, 245)  ; transition : (.2s ease-in-out left)">
+    <div class="carousel-inner">
+      <div class="carousel-item active">
+        <img class="d-block w-50" src="https://images.pexels.com/photos/125779/pexels-photo-125779.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260" style= " height: 500px; margin-left: 400px;" alt="First slide">
+      </div>
+      <div class="carousel-item">
+        <img class="d-block w-50" src="https://images.pexels.com/photos/2113994/pexels-photo-2113994.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260" style= " height: 497px; margin-left: 400px;" alt="Second slide">
+      </div>
+      <div class="carousel-item">
+        <img class="d-block w-50" src="https://images.pexels.com/photos/437037/pexels-photo-437037.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500" style= " height: 497px; margin-left: 400px;" alt="Third slide">
+      </div>
+      <div class="carousel-item">
+        <img class="d-block w-50" src="https://images.pexels.com/photos/691640/pexels-photo-691640.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260" style= " height: 497px; margin-left: 400px;" alt="Fourth slide">
+      </div>
+      <div class="carousel-item">
+        <img class="d-block w-50" src="https://images.pexels.com/photos/2182727/pexels-photo-2182727.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500" style= " height: 497px; margin-left: 400px;" alt="Fifth slide">
+      </div>
+    </div>
+  </div>
+  <div class=" d-flex o" >
+        
+    
+    <div class="container-fluid">
+        <div class="row" *ngFor = "let watch of watches;let i=index">
+            <div class="col-12 mt-3">
+                <div class="card">
+                    <div class="card-horizontal">
+                        <div class="img-square-wrapper">
+                            <img class="" src={{watch.imageURLs}} style="height: 300px; width: 200px;" alt="Card image cap">
+                        </div>
+                        <div class="card-body row" style="margin-left: 100px; ">
+                            <div class="col-5">
+                                <h2 class="card-title" style="color: brown; font-size:x-large;">{{watch.productName}}<br> <small style="color:black;">({{watch.productDescription}})</small> </h2>
+                                <br>
+                                <p class="card-text" style="font-size: large;"><strong>Price :</strong>Rs. {{productPrice[i] }}</p>
+                                <br><br>
+                                <button class="btn btn-danger" (click)="addToCart(watch)">Add To Cart</button>
+                            </div>
+                            <div class="col-4">
+                                <br><br>
+                                <strong>Specifications : </strong>
+                                <ul style="margin :auto" >
+                                    <li><strong style="color: coral;">Gender  :</strong>{{watch.variants[0].gender}}</li>
+                                    <li><strong style="color: coral;">Warranty Details :</strong>{{watch.variants[0].warrantyDetails}}</li>
+                                    <li><strong style="color: coral;">Strap Material :</strong>{{watch.variants[0].strapMaterial}}</li>
+                                    <li><strong style="color: coral;">Brand Name :</strong>{{watch.variants[0].brandName}}</li>
+                                </ul>
+                            </div>
+                            <div class="col-3">
+                              <br>
+                              <strong><p style="align-content: center; color: brown;" >Merchants-:</p></strong>              
+                              <table style="border-radius: 3px;">
+                            
+                             <tr>
+                               <td style="color:coral;">Name</td>
+                               <td style="color:coral;">Price</td>
+                               <!-- <td style="color:coral;">Stock Available</td> -->
+                              </tr>
+                              <tr style="box-sizing: content-box;">
+                                <td (click)="getPrice(watch.productId,watch.merchants[0].price,i)" style ="color: blue;">{{watch.merchants[0].merchantName}}</td> <td>{{watch.merchants[0].price}}</td>
+                                </tr>
+                                <tr>
+                                  <td (click)="getPrice(watch.productId,watch.merchants[1].price,i)" style ="color: blue;">{{watch.merchants[1].merchantName}}</td> <td>{{watch.merchants[1].price}}</td>
+                                </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+

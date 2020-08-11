@@ -1,0 +1,144 @@
+<app-nav-bar>
+</app-nav-bar>
+<!-- <div class=" d-flex o" >
+<div class="container-fluid">
+<div class="card">
+    <img src="https://scontent.fmaa1-4.fna.fbcdn.net/v/t1.0-9/102813640_102811714802437_8991487585767391232_n.jpg?_nc_cat=104&_nc_sid=85a577&_nc_ohc=aqYLWvAlBnwAX8NLqRZ&_nc_ht=scontent.fmaa1-4.fna&oh=fa15896d0c6c30053b15f8f8eb673b3a&oe=5F4491F7" alt="image" style="width:100%">
+    <p class="text text-success" style="font-size:x-large"></p>
+    <br>
+    <div style="background-color:coral">
+        <p><strong> Email Address</strong></p>
+    </div>
+    <p class="text text-info">{{email}}</p>
+    <div style="background-color:coral">
+        <p><strong>phone Number</strong></p>
+    </div>
+    <p class="text text-gray-800 text-sm">{{phoneNumber}}</p>
+    
+  </div>
+  
+  </div>
+  </div> -->
+  <div id="wrapper">
+    <div class="container-fluid">
+    <h3 class="text-dark mb-4">Profile</h3>
+    <div class="row mb-3">
+        <div class="col-lg-4">
+            <div class="card mb-3">
+                <div class="card-body text-center shadow"><img class="rounded-circle mb-3 mt-4" src="https://scontent.fmaa1-4.fna.fbcdn.net/v/t1.0-9/102813640_102811714802437_8991487585767391232_n.jpg?_nc_cat=104&_nc_sid=85a577&_nc_ohc=aqYLWvAlBnwAX8NLqRZ&_nc_ht=scontent.fmaa1-4.fna&oh=fa15896d0c6c30053b15f8f8eb673b3a&oe=5F4491F7" width="160" height="160"/>
+                    <div class="mb-3"><p  class="h6 text text-primary"id="uname" name="username">{{name}}</p></div>
+                </div>
+            </div>
+           
+        </div>
+        <div class="col-lg-8">
+            <div class="row">
+                <div class="col">
+                    <div class="card shadow mb-3">
+                        <div class="card-header py-3">
+                            <p class="text-primary m-0 font-weight-bold">Your Profile</p>
+                        </div>
+                        <div class="card-body" style="background-color: bisque;">
+                            <form >
+                                <div class="form-row">
+                                    <div class="col">
+                                        <div class="form-group"><label for="username"><strong>Name</strong></label><p  class="h4 text text-primary" id="uname" name="username">{{name}}</p></div>
+                                    </div>
+                                    <div class="col">
+                                        <div class="form-group"><label for="email"><strong>Email Address</strong></label><p class="text text-primary"   id="uemail" name="email">{{email}}</p></div>
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="col">
+                                        <div class="form-group"><label for="first_name"><strong>Mobile Number</strong></label><p class="text text-primary" id="uph_no" name="phone_num">{{phoneNumber}}</p></div>
+                                    </div>
+                                    <div class="form-row" style="margin-right: 250px;margin-top: 50px;">
+                                        <div class="col">
+                                            <button class="btn btn-sm btn-info" (click)="loginHistory()"data-toggle="modal" data-target="#loginHistoryModal" rel="nofollow" role="button">Login history</button>
+                                        </div>
+                                        <div class="col">
+                                            <button class="btn btn-sm btn-info" (click)="orderHistory()"data-toggle="modal" data-target="#orderHistoryModal" rel="nofollow" role="button">Order history</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    
+                </div>
+
+            </div>
+        </div>
+    </div>               
+</div>        
+</div>
+<div class="modal fade " id="orderHistoryModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header bg-info">
+          <h5 class="modal-title text-gray-800" id="exampleModalLabel">Order History</h5>
+          <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">×</span>
+          </button>
+        </div>
+        <div class="modal-body" id ="table-wrapper"   style="width:400px; height:300px; overflow:auto;">                          
+            <table class="table table-striped" id = "table-scroll"   >
+                <thead>
+                  <tr>
+                    <th scope="col">Sno.</th>
+                    <th scope="col">Date</th>
+                    <th scope="col">Items Ordered</th>
+                  </tr>
+                </thead>
+                
+                <tbody *ngFor="let order of orderHistoryData;index as i "> 
+                  <tr>
+                    <th scope="row">{{i+1}}</th>
+                    <td>{{order.date | date:'short'}}</td>
+                    <td>{{order.count}}</td>
+                  </tr>
+                </tbody>
+             
+          </table>
+        </div>
+        <div class="modal-footer">
+          <p class="text text-secondary" >To view detailed history of orders.Go to my orders.</p>
+          <button class="btn btn-success" [routerLink]="['/orderhistory']" data-dismiss="modal">My Orders</button>
+          <button class="btn btn-primary"  data-dismiss="modal">Ok</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal fade " id="loginHistoryModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header bg-info">
+          <h5 class="modal-title text-gray-800" id="exampleModalLabel">Login History</h5>
+          <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">×</span>
+          </button>
+        </div>
+        <div class="modal-body" style="width:400px; height:300px; overflow:auto;">                        
+            <table class="table table-striped">
+                <thead>
+                  <tr>
+                    <th scope="col">Sno.</th>
+                    <th scope="col">Date</th>
+                    <th scope="col">Login count</th>
+                  </tr>
+                </thead>
+                <tbody *ngFor="let order of loginHistroydata;index as i"> 
+                  <tr>
+                    <th scope="row">{{i+1}}</th>
+                    <td>{{order.date}}</td>
+                    <td>{{order.loginCount}}</td>
+                  </tr>
+                </tbody>
+          </table>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-primary" data-dismiss="modal" >Ok</button>
+        </div>
+      </div>
+    </div>
+  </div>

@@ -1,0 +1,179 @@
+controller
+
+
+package com.example.training_project2.Searchmicroservice.controllers;
+
+import com.example.training_project2.Searchmicroservice.builder.SearchQueryBuilder;
+import com.example.training_project2.Searchmicroservice.model.Product;
+import com.example.training_project2.Searchmicroservice.repository.ProductRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.ArrayList;
+import java.util.List;
+
+
+@RestController
+public class SearchController {
+
+    @Autowired
+    ProductRepository productRepository;
+
+
+    @Autowired
+    private SearchQueryBuilder searchQueryBuilder;
+
+
+    // FOR DEBUGGING
+    @GetMapping(value = "/search_all")
+    public List<Product> searchAll() {
+        List<Product> productList = new ArrayList<>();
+        Iterable<Product> products = productRepository.findAll();
+        products.forEach(productList::add);
+        return productList;
+    }
+
+
+
+    @GetMapping(value = "search")
+    public List<Product> searchByQuerry( @RequestParam String searchParam) {
+
+        return searchQueryBuilder.getAll(searchParam);
+    }
+
+
+    @PostMapping("/loadData")
+    public Boolean loadData(@RequestBody Product product) {
+        try {
+            productRepository.save(product);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+
+    }
+
+
+
+    // For Debugging :
+    // TODO : find a way to access elastic database through command line and remove this endpoint to be accessed by user
+    @DeleteMapping("/deleteAllData")
+    public Boolean deleteAllData() {
+        try {
+            productRepository.deleteAll();
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+
+    }
+
+    //    // For Debugging
+//    @DeleteMapping("/delete")
+//    public Boolean deleteAllData(@RequestParam(value = "productId") String productId) {
+//        try {
+//            productRepository.delete(productId);
+//            return true;
+//        } catch (Exception e) {
+//            return false;
+//        }
+//
+//    }
+
+
+}
+
+
+
+
+
+builder file
+
+
+
+
+
+package com.example.training_project2.Searchmicroservice.builder;
+
+import com.example.training_project2.Searchmicroservice.model.Product;
+import org.elasticsearch.index.query.QueryBuilder;
+import org.elasticsearch.index.query.QueryBuilders;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.elasticsearch.core.ElasticsearchTemplate;
+import org.springframework.data.elasticsearch.core.query.NativeSearchQuery;
+import org.springframework.data.elasticsearch.core.query.NativeSearchQueryBuilder;
+import org.springframework.stereotype.Component;
+
+import java.util.List;
+
+import static org.elasticsearch.index.query.QueryBuilders.boolQuery;
+import static org.elasticsearch.index.query.QueryBuilders.termQuery;
+
+@Component
+public class SearchQueryBuilder {
+
+    @Autowired
+    private ElasticsearchTemplate elasticsearchTemplate;
+
+
+    public List<Product> getAll(String requestParam) {
+
+
+        QueryBuilder query = boolQuery()
+                .should(
+                        QueryBuilders.queryStringQuery(requestParam)
+                                .lenient(true)
+                                .field("productName")
+                                .field("productCategory")
+                                .field("productDescription")
+                ).should(QueryBuilders.queryStringQuery("*" + requestParam + "*")
+                        .lenient(true)
+                        .field("productName")
+                        .field("productCategory")
+                        .field("productDescription")
+                ).should(QueryBuilders.nestedQuery(
+                        "variants", boolQuery().should(termQuery("variants.ram", requestParam)).should(
+                                termQuery("variants.colour", requestParam))));
+
+
+        NativeSearchQuery build = new NativeSearchQueryBuilder()
+                .withQuery(query)
+                .build();
+
+        List<Product> products = elasticsearchTemplate.queryForList(build, Product.class);
+
+        return products;
+    }
+
+    public List<Product> getByMasterSearch(String requestParam) {
+
+
+        QueryBuilder query = boolQuery()
+                .should(
+                        QueryBuilders.queryStringQuery(requestParam)
+                                .lenient(true)
+                                .field("productName")
+                                .field("category")
+                                .field("productDescription")
+                ).should(QueryBuilders.queryStringQuery("*" + requestParam + "*")
+                        .lenient(true)
+                        .field("productName")
+                        .field("category")
+                        .field("productDescription")
+                );
+
+        QueryBuilder filterQuery = QueryBuilders.nestedQuery(
+                "variants", boolQuery().should(termQuery("variants.ram", requestParam)).should(
+                        termQuery("variants.colour", requestParam)));
+
+        NativeSearchQuery build = new NativeSearchQueryBuilder()
+                .withQuery(query)
+//                .withQuery(filterQuery)
+                .build();
+
+        List<Product> products = elasticsearchTemplate.queryForList(build, Product.class);
+
+        return products;
+    }
+
+}

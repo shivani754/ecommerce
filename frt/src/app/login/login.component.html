@@ -1,0 +1,34 @@
+
+<app-nav-bar ></app-nav-bar>
+<body>
+<div class="login-box" >
+    <h2 class="textual">Login User</h2>
+    <form #loginform="ngForm" (ngSubmit)= "loginUser()">
+      <small class="text-danger">{{message}}</small>
+      <div class="form-group">
+        <label for="email">Email:</label>
+        <input type="email" class="form-control" placeholder="Enter email" name="email" [(ngModel)]= "user.emailId" required #email="ngModel"
+        pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" [class.is-invalid] =  "email.invalid && email.touched"
+        >
+         <div *ngIf = "email.errors && (email.invalid && email.touched ) ">
+           <small class="text-danger" *ngIf="email.errors.required">Email is a required field.</small>
+           <small class="text-danger" *ngIf ="email.errors.pattern">Please Enter the valid email.</small>
+        </div> 
+      </div>
+      <div class="form-group">
+        <label for="pwd">Password:</label>
+        <input type="password" class="form-control" placeholder="Enter password" name="pwd" [(ngModel)]= "user.password" required #password= "ngModel"
+        [class.is-invalid] =  "password.invalid && password.touched"
+        >
+        <small class="text-danger" [class.d-none] ="password.valid || password.untouched">Password is required field..</small>
+      </div>
+      <div class="checkbox">
+        <!-- <label><input type="checkbox" name="remember"> Remember me</label> -->
+      </div>
+      <button [disabled]="loginform.form.invalid" type="submit" class="btn btn-info">Login</button>
+      <small class="float-right">New customer?<button type ="button" class ="btn btn-link" [routerLink]="['/userregistration']">Signup Here.</button></small>
+        
+
+    </form>
+  </div>
+</body>

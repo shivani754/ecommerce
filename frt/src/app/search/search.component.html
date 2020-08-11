@@ -1,0 +1,67 @@
+
+
+
+<app-nav-bar ></app-nav-bar>
+<div class=" d-flex o" >
+ <div class="container-fluid"> 
+    <div class="row" *ngFor = "let product of productresult;let i=index">
+        <div class="col-12 mt-3">
+            <div class="card">
+                <div class="card-horizontal">
+                    <div class="img-square-wrapper">
+                        <img class="" src={{product.imageURLs}} style="height: 300px; width: 200px;" alt="Card image cap">
+                    </div>
+                    <div class="card-body row" style="margin-left: 100px; ">
+                        <div class="col-5">
+                            <h2 class="card-title" style="color: brown; font-size:x-large;">{{product.productName}}<br> <small style="color:black;">({{product.productDescription}})</small> </h2>
+                            <br>
+                            <p class="card-text" style="font-size: large;"><strong>Price :</strong>Rs. {{productPrice[i] }}</p>
+                            <br><br>
+                            <button class="btn btn-danger" (click)="addToCart(product)">Add To Cart</button>
+                        </div>
+                        <div class="col-4">
+                            <br><br>
+                            <strong>Specifications : </strong>
+                            <ul style="margin :auto" >
+                                <li *ngIf = "product.variants[0].ram!= undefined"><strong style="color: coral;" >Ram :</strong>{{product.variants[0].ram}}</li>
+                                <li *ngIf = "product.variants[0].colour!= undefined"><strong style="color: coral;" >Colour :</strong>{{product.variants[0].colour}}</li>
+                                <li *ngIf = "product.variants[0].simSlots!= undefined"><strong style="color: coral;" >Sim Slots :</strong>{{product.variants[0].simSlots}}</li>
+                                <li *ngIf = "product.variants[0].frontCamera!= undefined"><strong style="color: coral;" >Front Camera :</strong>{{product.variants[0].frontCamera}}</li>
+                                <li *ngIf = "product.variants[0].backCamera!= undefined"><strong style="color: coral;" >Back Camera :</strong>{{product.variants[0].backCamera}}</li>
+                                <li *ngIf = "product.variants[0].batterySize!= undefined"><strong style="color: coral;" >Battery Capacity :</strong>{{product.variants[0].batterySize}}</li>
+                                <li *ngIf = "product.variants[0].warrantyDetails!= undefined"><strong style="color: coral;" >Warranty Details :</strong>{{product.variants[0].warrantyDetails}}</li>
+                                <li *ngIf = "product.variants[0].strapMaterial!= undefined"><strong style="color: coral;" >Strap Material :</strong>{{product.variants[0].strapMaterial}}</li>
+                                <li *ngIf = "product.variants[0].brandName!= undefined"><strong style="color: coral;" >Brand Name :</strong>{{product.variants[0].brandName}}</li>
+                                <li *ngIf = "product.variants[0].Gender!= undefined"><strong style="color: coral;">Gender  :</strong>{{product.variants[0].gender}}</li>
+                                <li  *ngIf = "product.variants[0].inkColour!= undefined"><strong style="color: coral;">Ink Colour :</strong>{{product.variants[0].inkColour}}</li>
+                                <li *ngIf = "product.variants[0].bodyMaterial!= undefined"><strong style="color: coral;" >Body Material :</strong>{{product.variants[0].bodyMaterial}}</li>
+                                <li *ngIf = "product.variants[0].capacity!= undefined"><strong style="color: coral;" >Capacity :</strong>{{product.variants[0].capacity}}</li>
+                                <li *ngIf = "product.variants[0].flavour!= undefined"><strong style="color: coral;">Flavour :</strong>{{product.variants[0].flavour}}</li>
+                                <li *ngIf = "product.variants[0].vegetarian!= undefined"><strong style="color: coral;">Veg/Non-veg :</strong>{{product.variants[0].vegetarian}}</li>
+                            </ul>
+                        </div>
+                        <div class="col-3">
+                            <br>
+                            <strong><p style="align-content: center; color: brown;" >Merchants-:</p></strong>              
+                            <table  style="border-radius: 3px;">
+                          
+                           <tr>
+                             <td style="color:coral;">Name</td>
+                             <td style="color:coral;">Price</td>
+                            <!-- <td style="color:coral;">Stock Available</td> -->
+                            </tr>
+                            <tr style="box-sizing: content-box;">
+                              <td (click)="getPrice(product.productId,product.merchants[0].price,i)" style ="color: blue;">{{product.merchants[0].merchantName}}</td> <td>{{product.merchants[0].price}}</td>
+                              </tr>
+                              <tr>
+                                <td (click)="getPrice(product.productId,product.merchants[1].price,i)" style ="color: blue;">{{product.merchants[1].merchantName}}</td> <td>{{product.merchants[1].price}}</td>
+                              </tr>
+                              </table>
+                          </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div> 
+</div>

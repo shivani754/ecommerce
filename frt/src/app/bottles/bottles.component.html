@@ -1,0 +1,76 @@
+<app-nav-bar>
+</app-nav-bar>
+
+<div id="carouselExampleSlidesOnly" class="carousel slide" data-ride="carousel" style="background-color:rgb(208, 223, 245) ; transition : (.2s ease-in-out left)">
+    <div class="carousel-inner">
+      <div class="carousel-item active">
+        <img class="d-block w-50" src="https://images.pexels.com/photos/3737800/pexels-photo-3737800.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500" style= " height: 500px; margin-left: 300px;" alt="First slide">
+      </div>
+      <div class="carousel-item">
+        <img class="d-block w-50" src="https://images.pexels.com/photos/1342529/pexels-photo-1342529.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260" style= " height: 497px; margin-left: 300px;" alt="Second slide">
+      </div>
+      <div class="carousel-item">
+        <img class="d-block w-50" src="https://images.pexels.com/photos/2764720/pexels-photo-2764720.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500" style= " height: 497px; margin-left: 300px;" alt="Third slide">
+      </div>
+      <div class="carousel-item">
+        <img class="d-block w-50" src="https://images.pexels.com/photos/279480/pexels-photo-279480.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260" style= " height: 497px; margin-left: 300px;" alt="Fourth slide">
+      </div>
+      <div class="carousel-item">
+        <img class="d-block w-50" src="https://images.pexels.com/photos/3195774/pexels-photo-3195774.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500" style= " height: 497px; margin-left: 300px;" alt="Fifth slide">
+      </div>
+    </div>
+  </div>
+  <div class=" d-flex o" >
+        
+    
+    <div class="container-fluid">
+        <div class="row" *ngFor = "let bottle of bottles;let i=index">
+            <div class="col-12 mt-3">
+                <div class="card">
+                    <div class="card-horizontal">
+                        <div class="img-square-wrapper">
+                            <img class="" src={{bottle.imageURLs}} style="height: 300px; width: 200px;" alt="Card image cap">
+                        </div>
+                        <div class="card-body row" style="margin-left: 100px; ">
+                            <div class="col-5">
+                                <h2 class="card-title" style="color: brown; font-size:x-large;">{{bottle.productName}}<br> <small style="color:black;">({{bottle.productDescription}})</small> </h2>
+                                <br>
+                                <p class="card-text" style="font-size: large;"><strong>Price :</strong>Rs. {{productPrice[i] }}</p>
+                                <br><br>
+                                <button class="btn btn-danger" (click)="addToCart(bottle)">Add To Cart</button>
+                            </div>
+                            <div class="col-4">
+                                <br><br>
+                                <strong>Specifications : </strong>
+                                <ul style="margin :auto" >
+                                    <li><strong style="color: coral;">Capacity :</strong>{{bottle.variants[0].capacity}}</li>
+                                    <li><strong style="color: coral;">Body Material :</strong>{{bottle.variants[0].bodyMaterial}}</li>
+                                    <li><strong style="color: coral;">Brand Name :</strong>{{bottle.variants[0].brandName}}</li>
+                                    <li><strong style="color: coral;">warrantyDetails :</strong>{{bottle.variants[0].warrantyDetails}}</li>
+                                </ul>
+                            </div>
+                            <div class="col-3">
+                              <br>
+                              <strong><p style="align-content: center; color: brown;" >Merchants-:</p></strong>              
+                              <table style="border-radius: 10px;">
+                            
+                             <tr>
+                               <td style="color:coral;"> Name</td>
+                               <td style="color:coral;"> Price</td>
+                               <!-- <td style="color:coral;">Stock Available</td> -->
+                              </tr>
+                              <tr style="box-sizing: content-box;">
+                                <td (click)="getPrice(bottle.productId,bottle.merchants[0].price,i)">{{bottle.merchants[0].merchantName}}</td> <td>{{bottle.merchants[0].price}}</td>
+                                </tr>
+                                <tr>
+                                  <td (click)="getPrice(bottle.productId,bottle.merchants[1].price,i)">{{bottle.merchants[1].merchantName}}</td> <td>{{bottle.merchants[1].price}}</td>
+                                </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

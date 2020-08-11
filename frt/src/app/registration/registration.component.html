@@ -1,0 +1,70 @@
+
+
+
+<body>
+
+
+
+<div class="login-box" >
+
+    <h2 class="textual">New User Registration</h2>
+    <form #registrationform="ngForm" >
+      <small class="text-danger" >{{msg}}</small>
+   <!-- user name -->
+      <div class="form-group">
+        <label for="username">User Name:</label>
+        <input type="text " class="form-control" placeholder="Enter Username" name="username" [(ngModel)]= "user.userName"  #username= "ngModel" required
+        [class.is-invalid] =  "username.invalid && username.touched"
+        >
+        <small class="text-danger" [class.d-none] ="username.valid || username.untouched">userName is required field..</small>
+      </div>
+      <!-- phone number -->
+      <div class="form-group">
+        <label for="phonenumber">Phone Number: </label>
+        <input type="tel " class="form-control" placeholder="Enter phonenumber" name="phonenumber" [(ngModel)]= "user.phoneNumber"  #phonenumber= "ngModel" required
+        pattern="[6-9]{1}[0-9]{9}"  [class.is-invalid] =  "phonenumber.invalid && phonenumber.touched"
+        >
+        <div *ngIf = "phonenumber.errors && (phonenumber.invalid && phonenumber.touched ) ">
+          <small class="text-danger" *ngIf="phonenumber.errors.required">Email is a required field.</small>
+          <small class="text-danger" *ngIf ="phonenumber.errors.pattern">phoneNumber contains only number and 10 digit</small>
+       </div> 
+      </div>
+      <!-- email -->
+      <div class="form-group">
+        <label for="email">Email:</label>
+        <input type="email" class="form-control" placeholder="Enter email" name="email" [(ngModel)]= "user.emailId" required #email="ngModel"
+        pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" [class.is-invalid] =  "email.invalid && email.touched"
+        >
+         <div *ngIf = "email.errors && (email.invalid && email.touched ) ">
+           <small class="text-danger" *ngIf="email.errors.required">Email is a required field.</small>
+           <small class="text-danger" *ngIf ="email.errors.pattern">Please Enter the valid email.</small>
+        </div> 
+      </div>
+      <!-- password -->
+      <div class="form-group">
+        <label for="pwd">Password:</label>
+        <input type="password" class="form-control" placeholder="Enter password" name="pwd" [(ngModel)]= "user.password" required #password= "ngModel"
+        pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" [class.is-invalid] =  "password.invalid && password.touched"
+        >
+        <div *ngIf = "password.errors && (password.invalid && password.touched ) ">
+          <small class="text-danger" *ngIf="password.errors.required">password is a required field.</small>
+          <small class="text-danger" *ngIf ="password.errors.pattern">password should atleast 8 length,lower,upper case.</small>
+       </div> 
+      </div>
+       <!-- confirm password -->
+      <div class="form-group">
+        <label for="cpassword">Password:</label>
+        <input type="password" class="form-control" placeholder="Enter confirm password" name="cpassword"  #cpassword= "ngModel" (ngModel)= "user.password" required
+        [class.is-invalid] =  "cpassword.invalid && cpassword.touched"
+        >
+        <small class="text-danger" [class.d-none] ="(cpassword.value == password.value) || cpassword.untouched">Password and confirm passwors should be same</small>
+      </div>
+      
+
+
+      <button [disabled]="registrationform.form.invalid" type="submit" class="btn btn-info"  (click)="userRegistration()">Register</button> 
+      <small class="float-right btextual">Existing User?<button type ="button" class ="btn btn-link" [routerLink]="['/login']">Login Here.</button></small>
+ 
+    </form>
+  </div>
+  </body>

@@ -1,0 +1,69 @@
+
+    <!-- <div class="bg-secondaryy c">
+        <div class="d">
+
+
+<button type="button" *ngIf="loginFlag==false; else elseBlock;" class="btn btn-secondary btn-text-light ml-auto b" routerLink="login"><i class="fa fa-sign-in" style="font-size:22px"></i>&nbsp;&nbsp;Login</button>
+<button type="button" class="btn btn-secondary btn-text-light n" ><i class="fa fa-user-plus" aria-hidden="true" style="font-size:22px"></i>&nbsp;&nbsp;About Me</button>
+<button type="button" class="btn btn-secondary btn-text-light n"routerLink="cart" ><i class="fa fa-shopping-cart" style="font-size:22px" ></i>&nbsp;&nbsp;My Cart<span class="badge badge-warning">2</span></button>
+
+<ng-template #elseBlock>
+<button type="button" class="btn btn-secondary btn-danger text-light p" ><i class="fa fa-sign-out"  style="font-size:22px">&nbsp;&nbsp;Log Out</i></button>
+</ng-template>
+</div>
+</div> -->
+
+<nav class="navbar navbar-expand-lg static-top" style="background-image: linear-gradient(to left,#8f94fb,gray)">
+    <div class="container">
+      <div class="row">
+        <div class="col-8 col-sm">
+          <div class="row-lg">
+        <h4 class="mt-3 ml-3 text-light p0" [routerLink]="['']"><img src="https://scontent.fmaa1-4.fna.fbcdn.net/v/t1.0-9/102813640_102811714802437_8991487585767391232_n.jpg?_nc_cat=104&_nc_sid=85a577&_nc_ohc=aqYLWvAlBnwAX8NLqRZ&_nc_ht=scontent.fmaa1-4.fna&oh=fa15896d0c6c30053b15f8f8eb673b3a&oe=5F4491F7" style="width: 30px;height: 30px;"><i><b style="margin-left: 10px;">Welcome to ShoppingBee!</b></i></h4>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+        </div>
+<!-- line of code to change -->
+<div class="row-lg">
+   <form>
+    <div class="input-group mb-3 mt-3 ml-60 mr-80 h"  >
+       <div class="input-group-append">
+        <input type="text" class="form-control" placeholder="Search" id="search" name="search" [(ngModel)]="search"  style="border-radius: 10px; width: 200px ;  margin-left: -45px">
+        <button type="submit" class="btn btn-info" [routerLink] ="['/searchresults']" (click)="searchResult()" style="   border-radius: 10px;     margin-left: -12px; " >Search</button>
+      </div>
+    </div>
+    </form>
+  </div>
+  </div>
+  </div>
+
+      <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item active">
+            <button class="btn btn-secondary btn-text-light n"  [routerLink]="['']"><i class="fa fa-home" style="font-size:23px ;border-radius: 10px;"></i>&nbsp;&nbsp;Home
+          </button>
+          </li>
+          <li class="nav-item">
+            <button type="button" class="btn btn-secondary btn-text-light n" *ngIf="loginFlag==true" [routerLink]="['/MyProfile']"><i class="fa fa-user-plus" aria-hidden="true" style="font-size:22px"></i>&nbsp;&nbsp;Profile</button>
+          </li>
+          <li class="nav-item">
+            <button type="button" class="btn btn-secondary btn-text-light n" [routerLink]="['/cart']" ><i class="fa fa-shopping-cart" style="font-size:22px" ></i>&nbsp;&nbsp;My Cart<span class="badge badge-warning">{{counter}}</span></button>&nbsp;
+          </li>
+          <li class="nav-item">
+            <button type="button" *ngIf="loginFlag==true" class="btn btn-secondary btn-text-light ml-auto b" [routerLink]="['/orderhistory']"><i class="fa fa-sign-in" style="font-size:22px"></i>&nbsp;&nbsp;My Orders</button>
+          </li>
+          <li class="nav-item">
+            <button type="button" *ngIf="loginFlag==false; else elseBlock;" class="btn btn-secondary btn-text-light ml-auto b" [routerLink]="['/login']"><i class="fa fa-sign-in" style="font-size:22px"></i>&nbsp;&nbsp;Login</button>
+          </li>
+         
+          <ng-template #elseBlock>
+            <button type="button" class="btn btn-secondary btn-danger text-light p" (click)="logOut()"><i class="fa fa-sign-out"  style="font-size:22px">&nbsp;&nbsp;Log Out</i></button>
+            </ng-template>
+        </ul>
+      </div>
+    </div>
+    
+  </nav>
+  
+
+    

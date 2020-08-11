@@ -1,0 +1,46 @@
+<app-nav-bar></app-nav-bar>
+<body>
+<div  class="bg-light">
+    <h2 style="text-align:center;padding:13px;">My Order History</h2>
+  </div>
+
+<div class="container mb-4 la">
+<div class="row">
+    <div class="col-12">
+        <div class="table-responsive" >
+            <table class="table table-striped" >
+                <thead>
+                    <tr>
+                        <th scope="col"> </th>
+                        <th scope="col">Product</th>
+                        <th scope="col">Quantity</th>
+                        <th scope="col">Price</th>
+                        <!-- <th scope="col" >Date</th> -->
+                        <th> </th>
+                    </tr>
+                </thead>
+                <tbody *ngFor="let order of listMap | keyvalue">
+                    <p class="text text-info text-sm" style="background-color: #b7ebf3;">{{order.key | date:'short'}}</p>
+                    <tr *ngFor="let p of order.value">
+                        <td><img src="{{p.imageURLs}}" class="uy"> </td>
+                        <td>{{p.productName}}</td>
+                      <td> &nbsp;<span>{{p.quantity}}</span></td> 
+                        <td>{{p.price * p.quantity}}</td>
+                    </tr>
+                    <hr style="height:2px;border-width:0;color:gray;background-color:gray ; width: 500%;">
+                </tbody>
+            </table>
+        </div>
+        <br><br>
+    </div>
+    <div class="col mb-2">
+        <div class="row">
+                <div class="col-md-6 ko">
+                        <button class="btn btn-primary  text-uppercase text-center" routerLink="">Continue Shopping</button>
+                    </div>
+            
+        </div>
+    </div>
+</div>
+</div>
+</body>
